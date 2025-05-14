@@ -304,6 +304,8 @@ typedef enum _sai_acl_action_type_t
     /** Bind a TAM object */
     SAI_ACL_ACTION_TYPE_TAM_OBJECT = 0x0000003d,
 
+    /** Set metadata to carry forward to next ACL stage */
+    SAI_ACL_ACTION_TYPE_SET_ACL_META_DATA_2 = 0x0000003e,
 } sai_acl_action_type_t;
 
 /**
@@ -1580,9 +1582,18 @@ typedef enum _sai_acl_table_attr_t
     SAI_ACL_TABLE_ATTR_FIELD_DST_PREFIX_META = SAI_ACL_TABLE_ATTR_FIELD_START + 0x161,
 
     /**
+     * @brief Metadata carried from previous ACL Stage
+     *
+     * @type bool
+     * @flags CREATE_ONLY
+     * @default false
+     */
+    SAI_ACL_TABLE_ATTR_FIELD_ACL_USER_META_2 = SAI_ACL_TABLE_ATTR_FIELD_START + 0x162,
+
+    /**
      * @brief End of ACL Table Match Field
      */
-    SAI_ACL_TABLE_ATTR_FIELD_END = SAI_ACL_TABLE_ATTR_FIELD_DST_PREFIX_META,
+    SAI_ACL_TABLE_ATTR_FIELD_END = SAI_ACL_TABLE_ATTR_FIELD_ACL_USER_META_2,
 
     /**
      * @brief ACL table entries associated with this table.
@@ -2708,9 +2719,23 @@ typedef enum _sai_acl_entry_attr_t
     SAI_ACL_ENTRY_ATTR_FIELD_DST_PREFIX_META = SAI_ACL_ENTRY_ATTR_FIELD_START + 0x161,
 
     /**
+     * @brief Metadata carried from previous ACL stage.
+     *
+     * When an ACL entry set the meta data, the ACL metadata
+     * from previous stages are overridden.
+     * Value must be in the range defined in
+     * #SAI_SWITCH_ATTR_ACL_USER_META_DATA_RANGE_2
+     *
+     * @type sai_acl_field_data_t sai_uint32_t
+     * @flags CREATE_AND_SET
+     * @default disabled
+     */
+    SAI_ACL_ENTRY_ATTR_FIELD_ACL_USER_META_2 = SAI_ACL_ENTRY_ATTR_FIELD_START + 0x162,
+
+    /**
      * @brief End of Rule Match Fields
      */
-    SAI_ACL_ENTRY_ATTR_FIELD_END = SAI_ACL_ENTRY_ATTR_FIELD_DST_PREFIX_META,
+    SAI_ACL_ENTRY_ATTR_FIELD_END = SAI_ACL_ENTRY_ATTR_FIELD_ACL_USER_META_2,
 
     /*
      * Actions [sai_acl_action_data_t]
@@ -3357,9 +3382,20 @@ typedef enum _sai_acl_entry_attr_t
     SAI_ACL_ENTRY_ATTR_ACTION_TAM_OBJECT = SAI_ACL_ENTRY_ATTR_ACTION_START + 0x3d,
 
     /**
+     * @brief Set metadata to carry forward to next ACL Stage
+     *
+     * Value Range #SAI_SWITCH_ATTR_ACL_USER_META_DATA_RANGE_2
+     *
+     * @type sai_acl_action_data_t sai_uint32_t
+     * @flags CREATE_AND_SET
+     * @default disabled
+     */
+    SAI_ACL_ENTRY_ATTR_ACTION_SET_ACL_META_DATA_2 = SAI_ACL_ENTRY_ATTR_ACTION_START + 0x3e,
+
+    /**
      * @brief End of Rule Actions
      */
-    SAI_ACL_ENTRY_ATTR_ACTION_END = SAI_ACL_ENTRY_ATTR_ACTION_TAM_OBJECT,
+    SAI_ACL_ENTRY_ATTR_ACTION_END = SAI_ACL_ENTRY_ATTR_ACTION_SET_ACL_META_DATA_2,
 
     /**
      * @brief End of ACL Entry attributes

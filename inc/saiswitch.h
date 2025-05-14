@@ -3425,6 +3425,14 @@ typedef enum _sai_switch_attr_t
     SAI_SWITCH_ATTR_SWITCH_IPSEC_POST_STATUS_NOTIFY,
 
     /**
+     * @brief ACL user-based ACL meta data range
+     *
+     * @type sai_u32_range_t
+     * @flags READ_ONLY
+     */
+    SAI_SWITCH_ATTR_ACL_USER_META_DATA_RANGE_2,
+
+    /**
      * @brief End of attributes
      */
     SAI_SWITCH_ATTR_END,
