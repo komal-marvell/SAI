@@ -1050,6 +1050,60 @@ typedef struct _sai_acl_resource_list_t
 } sai_acl_resource_list_t;
 
 /**
+ * @brief Field type for ACL capability extended
+ */
+typedef enum _sai_acl_capability_extended_type_t
+{
+    /** Router Interface user-based meta data range */
+    SAI_ACL_CAPABILITY_EXTENDED_TYPE_ROUTER_INTERFACE_META_DATA,
+
+} sai_acl_capability_extended_type_t;
+
+/**
+ * @extraparam sai_acl_capability_extended_type_t type
+ */
+typedef union _sai_acl_capability_extended_value_t
+{
+    /** @validonly type == SAI_ACL_CAPABILITY_EXTENDED_TYPE_ROUTER_INTERFACE_META_DATA */
+    sai_u32_range_t router_interface_meta_data_range;
+
+} sai_acl_capability_extended_value_t;
+
+/**
+ * @brief Structure for ACL capability extended fields.
+ */
+typedef struct _sai_acl_capability_extended_t
+{
+    /**
+     * @brief ACL capability extended type
+     */
+    sai_acl_capability_extended_type_t type;
+
+    /** @passparam type */
+    sai_acl_capability_extended_value_t value;
+} sai_acl_capability_extended_t;
+
+/**
+ * @brief List of ACL attribute values supported at each stage.
+ * This shall be returned when queried for
+ * SAI_SWITCH_ATTR_PRE_INGRESS_ACL_CAPABILITY_EXTENDED or
+ * SAI_SWITCH_ATTR_INGRESS_ACL_CAPABILITY_EXTENDED or
+ * SAI_SWITCH_ATTR_EGRESS_ACL_CAPABILITY_EXTENDED
+ */
+typedef struct _sai_acl_capability_extended_list_t
+{
+    /**
+     * @brief Number of fields in ACL capability extended list
+     */
+    uint32_t count;
+
+    /**
+     * @brief ACL capability extended field list
+     */
+    sai_acl_capability_extended_t *list;
+} sai_acl_capability_extended_list_t;
+
+/**
  * @brief Segment Routing Tag Length Value Types
  */
 typedef enum _sai_tlv_type_t
@@ -1693,6 +1747,10 @@ typedef union _sai_attribute_value_t
 
     /** @validonly meta->attrvaluetype == SAI_ATTR_VALUE_TYPE_PORT_PAM4_EYE_VALUES_LIST */
     sai_port_pam4_eye_values_list_t portpam4eyevalues;
+
+    /** @validonly meta->attrvaluetype == SAI_ATTR_VALUE_TYPE_ACL_CAPABILITY_EXTENDED_LIST */
+    sai_acl_capability_extended_list_t aclcapabilityextended;
+
 } sai_attribute_value_t;
 
 /**

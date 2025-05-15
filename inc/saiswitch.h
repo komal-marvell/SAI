@@ -3425,6 +3425,30 @@ typedef enum _sai_switch_attr_t
     SAI_SWITCH_ATTR_SWITCH_IPSEC_POST_STATUS_NOTIFY,
 
     /**
+     * @brief Pre Ingress ACL stage.
+     *
+     * @type sai_acl_capability_extended_list_t
+     * @flags READ_ONLY
+     */
+    SAI_SWITCH_ATTR_PRE_INGRESS_ACL_CAPABILITY_EXTENDED,
+
+    /**
+     * @brief Ingress ACL stage.
+     *
+     * @type sai_acl_capability_extended_list_t
+     * @flags READ_ONLY
+     */
+    SAI_SWITCH_ATTR_INGRESS_ACL_CAPABILITY_EXTENDED,
+
+    /**
+     * @brief Egress ACL stage.
+     *
+     * @type sai_acl_capability_extended_list_t
+     * @flags READ_ONLY
+     */
+    SAI_SWITCH_ATTR_EGRESS_ACL_CAPABILITY_EXTENDED,
+
+    /**
      * @brief End of attributes
      */
     SAI_SWITCH_ATTR_END,
